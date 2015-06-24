@@ -65,9 +65,9 @@ map <F3> :NERDTree<CR>
 :inoremap <F4> <ESC>:q<CR>
 "kopia pliku ze znacznikiem czasu
 map <F5> ggVG:w %-back<C-r>=strftime('%y%m%d-%H%M%S')<CR><CR>
-"wstawianie na początku linii daty i godziny
-:nnoremap <F6> <ESC>0"=strftime("%c")<CR>PA<tab>
-:inoremap <F6> <ESC>0i<C-R>=strftime("%c")<CR><tab>
+"wstawianie daty i godziny
+:nnoremap <F6> <ESC>"=strftime("%c")<CR>PA
+:inoremap <F6> <ESC>i<C-R>=strftime("%c")<CR>
 map <F9> :FufFile<CR>
 
 "strzałki dodają nowe linie lub je przesuwają
