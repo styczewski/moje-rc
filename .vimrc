@@ -42,10 +42,6 @@ nmap N Nzz
 nmap } }zz
 nmap { {zz
 
-"nawigacja pomiędzy buforami
-map <C-h> :bp<cr>
-map <C-l> :bn<cr>
-
 "nawigacja pomiędzy kartami
 map <C-p> <Esc>:tabprev<CR>
 map <C-n> <Esc>:tabnext<CR>
@@ -67,14 +63,18 @@ map <F3> :NERDTree<CR>
 map <F5> ggVG:w %-back<C-r>=strftime('%y%m%d-%H%M%S')<CR><CR>
 "wstawianie daty i godziny
 :nnoremap <F6> <ESC>"=strftime("%c")<CR>PA
-:inoremap <F6> <ESC>i<C-R>=strftime("%c")<CR>
+:inoremap <F6> <ESC>a<C-R>=strftime("%c")<CR>
 map <F9> :FufFile<CR>
 
-"strzałki dodają nowe linie lub je przesuwają
+"strzałki dodają nowe linie lub je przesuwają (podobne działanie także dla hjkl)
 no <up> ddkP
+no <C-k> ddkP
 no <down> ddp
+no <C-j> ddp
 no <left> O<ESC>
+no <C-h> O<ESC>
 no <right> o<ESC>
+no <C-l> o<ESC>
 
 "szybkie teksty
 :imap =sd Zgłoszenie HelpDesk SD
