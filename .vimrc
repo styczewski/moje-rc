@@ -1,10 +1,14 @@
+set runtimepath+=~/.vim/ultisnips_rep
+set rtp+=~/.fzf                   "fuzzy finder
+
 syntax on                        "kolorowanie składni
 :let php_sql_query=1             "kolorowanie sql w kodzie php
 :let php_htmlInStrings=1         "kolorowanie html w kodzie php
 set autoindent                   "dodawaj wcięcia inteligentne
 :se expandtab                    "zamienia wcięcia na spacje
-:se shiftwidth=3                 "o ile pozycji przesuwać wcięcie bloku
-:se softtabstop=3                "ilość spacji wstawianych zamiast TAB
+:se shiftwidth=2                 "o ile pozycji przesuwać wcięcie bloku
+:se softtabstop=2                "ilość spacji wstawianych zamiast TAB
+set relativenumber
 set list                         "pokazywanie znaków tabulacji i spacji na końcu linii
 set listchars=trail:_,tab:>-     "ustawienie pokazywanych znaków zamiast spacji (oraz tabulacji)
 set wildmenu                     "podpowiedzi dla komend systemowych i uzupełnianie nazw plików
@@ -22,6 +26,7 @@ set background=dark              "ciemne tło
 hi Visual term=reverse cterm=reverse guibg=Grey
 :hi Pmenu ctermbg=yellow  "kolor menu popup
 set t_Co=256
+hi Comment ctermfg=DarkGray           "kolor komentarzy
 
 set spelllang=pl_pl,en_us        "sprawdzanie pisowni
 set showmatch                    "pokazuj dopasowanie nawiasów, klamr
@@ -76,9 +81,11 @@ no <C-h> O<ESC>
 no <right> o<ESC>
 no <C-l> o<ESC>
 
-"szybkie teksty
-:imap =sd Zgłoszenie HelpDesk SD
-:imap =sep ===================================================================================================
+"ultisnips
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+
 
 " statusline
 " format markers:
