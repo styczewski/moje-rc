@@ -51,6 +51,12 @@ nmap { {zz
 map <C-p> <Esc>:tabprev<CR>
 map <C-n> <Esc>:tabnext<CR>
 
+" nawigacja w zawijanych wierszach
+nnoremap k gk
+nnoremap j gj
+nnoremap gk k
+nnoremap gj j
+
 "szybkie wstawianie pomiędzy '"([
 imap <leader>' ''<ESC>i
 imap <leader>" ""<ESC>i
