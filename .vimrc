@@ -8,7 +8,7 @@ set autoindent                   "dodawaj wcięcia inteligentne
 :se expandtab                    "zamienia wcięcia na spacje
 :se shiftwidth=2                 "o ile pozycji przesuwać wcięcie bloku
 :se softtabstop=2                "ilość spacji wstawianych zamiast TAB
-set relativenumber
+set relativenumber               "relatywne numerowanie wierszy
 set list                         "pokazywanie znaków tabulacji i spacji na końcu linii
 set listchars=trail:_,tab:>-     "ustawienie pokazywanych znaków zamiast spacji (oraz tabulacji)
 set wildmenu                     "podpowiedzi dla komend systemowych i uzupełnianie nazw plików
@@ -47,10 +47,6 @@ nmap N Nzz
 nmap } }zz
 nmap { {zz
 
-"nawigacja pomiędzy kartami
-map <C-p> <Esc>:tabprev<CR>
-map <C-n> <Esc>:tabnext<CR>
-
 " nawigacja w zawijanych wierszach
 nnoremap k gk
 nnoremap j gj
@@ -65,9 +61,10 @@ imap <leader>[ []<ESC>i
 imap <leader>{ {}<ESC>i
 
 "przypisanie klawiszy funkcyjnych
+map <F1> <Esc>:tabprev<CR>
 :nnoremap <F2> :w<CR>
 :inoremap <F2> <ESC>:w<CR>
-map <F3> :NERDTree<CR>
+map <F3> <Esc>:tabnext<CR>
 :nnoremap <F4> :q<CR>
 :inoremap <F4> <ESC>:q<CR>
 "kopia pliku ze znacznikiem czasu
@@ -75,7 +72,10 @@ map <F5> ggVG:w %-back<C-r>=strftime('%y%m%d-%H%M%S')<CR><CR>
 "wstawianie daty i godziny
 :nnoremap <F6> <ESC>"=strftime("%c")<CR>PA
 :inoremap <F6> <ESC>a<C-R>=strftime("%c")<CR>
+map <F7> :tabnew<CR>
+map <F8> :FZF<CR>
 map <F9> :FufFile<CR>
+map <F10> :NERDTree<CR>
 
 "strzałki dodają nowe linie lub je przesuwają (podobne działanie także dla hjkl)
 no <up> ddkP

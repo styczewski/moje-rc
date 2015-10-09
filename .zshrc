@@ -1,5 +1,5 @@
 # Path to your oh-my-zsh installation.
-export ZSH=/home/pstyczewski/.oh-my-zsh
+export ZSH=/home/styczewscy/.oh-my-zsh
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -27,7 +27,7 @@ ZSH_THEME="robbyrussell"
 # DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
+ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
 # COMPLETION_WAITING_DOTS="true"
@@ -58,7 +58,7 @@ setopt HIST_FIND_NO_DUPS
 setopt hist_ignore_all_dups
 
 
-export PATH="/home/pstyczewski/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/pstyczewski/.fzf/bin"
+export PATH="$PATH:/home/styczewscy/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/styczewscy/.fzf/bin"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
@@ -87,12 +87,11 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias idb="cd ~/Dropbox"
-alias ipb="cd ~/Pobrane"
-alias idk="cd ~/Dokumenty"
-alias ipawel="cd ~/encfs/pawel"
-alias iteo="cd ~/encfs/teo"
-alias izborowe="cd ~/encfs/zborowe"
+alias ..='cd ..;'
+alias edytuj='vim $(fzf)'
+alias uspij='sudo pm-suspend'
+alias instaluj='sudo apt-get install '
+alias odinstaluj='sudo apt-get remove '
 
 # fe [FUZZY PATTERN] - Open the selected file with the default editor
 #   - Bypass fuzzy finder if there's only one match (--select-1)
@@ -144,3 +143,18 @@ fkill() {
     kill -${1:-9} $pid
   fi
 }
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# Path to your oh-my-zsh installation.
+
+fzf-dmenu() {
+    # note: xdg-open has a bug with .desktop files, so we cant use that shit
+    selected="$(ls /usr/share/applications | fzf -e)"
+    nohup `grep '^Exec' "/usr/share/applications/$selected" | tail -1 | sed 's/^Exec=//' | sed 's/%.//'` >/dev/null 2>&1&
+}
+
+# hotkey to run the function (Ctrl+O)
+bindkey -s '^k' "fkill\n"
+bindkey -s '^o' "fzf-dmenu\n"
+bindkey -s '^e' "fd\n"
