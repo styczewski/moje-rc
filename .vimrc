@@ -8,12 +8,11 @@ set autoindent                   "dodawaj wcięcia inteligentne
 :se expandtab                    "zamienia wcięcia na spacje
 :se shiftwidth=2                 "o ile pozycji przesuwać wcięcie bloku
 :se softtabstop=2                "ilość spacji wstawianych zamiast TAB
-set relativenumber               "relatywne numerowanie wierszy
 set list                         "pokazywanie znaków tabulacji i spacji na końcu linii
 set listchars=trail:_,tab:>-     "ustawienie pokazywanych znaków zamiast spacji (oraz tabulacji)
 set wildmenu                     "podpowiedzi dla komend systemowych i uzupełnianie nazw plików
 set confirm                      "pytaj o potwierdzenie zamiast odmawiać wykonania operacji
-set number                       "numerowanie wierszy
+set relativenumber               "relatywne numerowanie wierszy
 set nowrap                       "nie zawijaj wierszy
 set showmode                     "pokazuje w jakim trybie jesteś
 set ruler                        "linia z informacjami o otwartym pliku
@@ -26,7 +25,7 @@ set background=dark              "ciemne tło
 hi Visual term=reverse cterm=reverse guibg=Grey
 :hi Pmenu ctermbg=yellow  "kolor menu popup
 set t_Co=256
-hi Comment ctermfg=DarkGray           "kolor komentarzy
+hi Comment ctermfg=Gray           "kolor komentarzy
 
 set spelllang=pl_pl,en_us        "sprawdzanie pisowni
 set showmatch                    "pokazuj dopasowanie nawiasów, klamr
@@ -38,7 +37,6 @@ set ignorecase                   "ignoruj wielkość znaków przy wyszukiwaniu
 set smartcase                    "przestań ignorować wielkość znaków jeśli fraza zawiera wielkie litery
 set nohlsearch                   "nie podświetlaj wyników wyszukiwania
 
-:cnoremap <c-n> <CR>n/<c-p>
 
 "wyśrodkowanie
 nmap G Gzz
@@ -67,15 +65,14 @@ map <F1> <Esc>:tabprev<CR>
 map <F3> <Esc>:tabnext<CR>
 :nnoremap <F4> :q<CR>
 :inoremap <F4> <ESC>:q<CR>
-"kopia pliku ze znacznikiem czasu
 map <F5> ggVG:w %-back<C-r>=strftime('%y%m%d-%H%M%S')<CR><CR>
-"wstawianie daty i godziny
 :nnoremap <F6> <ESC>"=strftime("%c")<CR>PA
 :inoremap <F6> <ESC>a<C-R>=strftime("%c")<CR>
 map <F7> :tabnew<CR>
 map <F8> :FZF<CR>
 map <F9> :FufFile<CR>
 map <F10> :NERDTree<CR>
+vnoremap <C-c> "+y
 
 "strzałki dodają nowe linie lub je przesuwają (podobne działanie także dla hjkl)
 no <up> ddkP
