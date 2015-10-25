@@ -17,6 +17,8 @@ set nowrap                       "nie zawijaj wierszy
 set showmode                     "pokazuje w jakim trybie jesteś
 set ruler                        "linia z informacjami o otwartym pliku
 set mouse=a                      "obsługa myszy
+au BufWinLeave ?* mkview          "automatyczne zapisywanie widoku
+au BufWinEnter ?* silent loadview "automatyczne ładowanie zapisanego widoku
 
 "kolory
 set cursorline                   "podświetlanie linii kursora
