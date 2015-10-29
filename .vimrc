@@ -1,5 +1,6 @@
 set runtimepath+=~/.vim/ultisnips_rep
 set rtp+=~/.fzf                   "fuzzy finder
+set runtimepath^=~/.vim/bundle/ctrlp.vim
 
 syntax on                        "kolorowanie składni
 :let php_sql_query=1             "kolorowanie sql w kodzie php
@@ -111,3 +112,36 @@ if version >= 700
   au InsertLeave * highlight StatusLine cterm=bold ctermfg=yellow ctermbg=blue
   au InsertEnter * highlight StatusLine cterm=bold ctermfg=black ctermbg=yellow
 endif
+
+
+" ================ easymotion ============================================================================
+map <Leader> <Plug>(easymotion-prefix)
+let g:EasyMotion_do_mapping = 0 " Disable default mappings
+
+" Bi-directional find motion
+" Jump to anywhere you want with minimal keystrokes, with just one key binding.
+" `s{char}{label}`
+nmap s <Plug>(easymotion-s)
+" or
+" `s{char}{char}{label}`
+" Need one more keystroke, but on average, it may be more comfortable.
+nmap s <Plug>(easymotion-s2)
+
+" Turn on case insensitive feature
+let g:EasyMotion_smartcase = 1
+
+" JK motions: Line motions
+map <Leader>l <Plug>(easymotion-lineforward)
+map <Leader>j <Plug>(easymotion-j)
+map <Leader>k <Plug>(easymotion-k)
+map <Leader>h <Plug>(easymotion-linebackward)
+
+let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
+
+map  / <Plug>(easymotion-sn)
+omap / <Plug>(easymotion-tn)
+" These & works fine. (These mappings just provide
+" different highlight method and have some other features )
+map  n <Plug>(easymotion-next)
+map  N <Plug>(easymotion-prev)
+
