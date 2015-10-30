@@ -1,4 +1,4 @@
-set runtimepath+=~/.vim/ultisnips_rep
+execute pathogen#infect()
 set rtp+=~/.fzf                   "fuzzy finder
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 
@@ -39,6 +39,11 @@ set is                           "wyszukiwanie przyrostowe
 set ignorecase                   "ignoruj wielkość znaków przy wyszukiwaniu
 set smartcase                    "przestań ignorować wielkość znaków jeśli fraza zawiera wielkie litery
 set nohlsearch                   "nie podświetlaj wyników wyszukiwania
+
+"ignorowanie niektórych plików
+set wildignore+=*.bmp,*.jpg,*.zip,*.gz,*.pdf,*.PDF,*.gpg,*.xcf
+set wildignore+=*.doc,*.docx,*.xls,*.xlsx,*.odt,*.ods
+set wildignore+=*.swp,*.tmp,*~
 
 
 "wyśrodkowanie
@@ -144,4 +149,20 @@ omap / <Plug>(easymotion-tn)
 " different highlight method and have some other features )
 map  n <Plug>(easymotion-next)
 map  N <Plug>(easymotion-prev)
+
+nmap <leader>c :CtrlP ~/Dokumenty
+nmap <leader>b :CtrlPBuffer
+nmap <leader>l :CtrlPLine
+let g:SuperTabMappingForward = '<nul>'
+let g:SuperTabMappingBackward = '<s-nul>'
+
+" session management
+let g:session_directory = "~/.vim/session"
+let g:session_autoload = "no"
+let g:session_autosave = "no"
+let g:session_command_aliases = 1
+nnoremap <leader>so :OpenSession
+nnoremap <leader>ss :SaveSession
+nnoremap <leader>sd :DeleteSession<CR>
+nnoremap <leader>sc :CloseSession<CR>
 
