@@ -1,15 +1,14 @@
 
-Pliki konfiguracyjne programów terminalowych. Ustawienia zebrałem z różnych konfiguracji znalezionych w sieci, wybrałem ustawienia ułatwiające mi pracę i umieszczam je tu by były zawsze "pod ręką".
+Moje pliki rc
 
 1. TMUX - terminal multiplexer - .tmux.conf
 2. VIM - edytor tekstu - .vimrc
-3. ZSH - powłoka - .zshrc
 
 # http://ranger.nongnu.org/
-4. Ranger - konsolowy menedźer plików - .config/ranger/rc.conf
+3. Ranger - konsolowy menedźer plików - .config/ranger/rc.conf
 
 # http://newsbeuter.org/
-5. newsbeuter - czytnik RSS - .newsbeuter/config
+4. newsbeuter - czytnik RSS - .newsbeuter/config
 
 
 

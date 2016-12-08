@@ -13,12 +13,10 @@ Plugin 'VundleVim/Vundle.vim'
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
 " plugin on GitHub repo
-"Plugin 'henrik/vim-indexed-search'
 Plugin 'VisIncr'
 Plugin 'cskeeters/vim-calutil'
 Plugin 'tpope/vim-fugitive'
 Plugin 'itchyny/calendar.vim'
-" Plugin 'KabbAmine/vCoolor.vim'
 Plugin 'tpope/vim-abolish'
 Plugin 'christoomey/vim-system-copy'
   let g:system_copy#copy_command='xclip -sel clipboard'
@@ -40,16 +38,16 @@ Plugin 'Shougo/neocomplcache.vim'
 Plugin 'gcmt/taboo.vim'
 Plugin 'sk1418/HowMuch'
 Plugin 'vimwiki/vimwiki'
-" Plugin 'mattn/calendar-vim'
-
 Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'tomtom/tlib_vim'
 Plugin 'garbas/vim-snipmate'
-
 Bundle 'https://github.com/neilagabriel/vim-geeknote'
 Bundle 'kshenoy/vim-signature'
 Bundle 'xolox/vim-session'
 Bundle 'xolox/vim-misc'
+" Plugin 'mattn/calendar-vim'
+" Plugin 'KabbAmine/vCoolor.vim'
+" Plugin 'henrik/vim-indexed-search'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -86,10 +84,8 @@ set nowrap                        " nie zawijaj wierszy
 set showmode                      " pokazuje w jakim trybie jesteś
 set ruler                         " liniu z informacjami o otwartym pliku
 set mouse=a                       " obsługa myszy
-" au BufWinLeave ?* mkview          
-" au BufWinEnter ?* silent loadview 
-autocmd BufWinLeave .* mkview
-autocmd BufWinEnter .* silent loadview
+au BufWinLeave ?* mkview          
+au BufWinEnter ?* silent loadview 
 
 "Invisible character colors
 highlight NonText guifg=#4a4a59
@@ -126,7 +122,6 @@ nmap <leader>b ;CtrlPBuffer<CR>
 nnoremap <leader>p ;set list!<cr> " pokazywanie znaków niedrukowanych
 nnoremap <leader>tu ?^--<cr>V/^--/-1<cr>d?^--<cr>Pj
 nnoremap <leader>td ?^--<cr>V/^--/-1<cr>d/^--<cr>Pj
-nnoremap <leader>jw G90i=<ESC>:bn<CR>ggVGy:bd<CR>p
 
 set is
 set ignorecase
@@ -154,7 +149,7 @@ nnoremap k gk
 nnoremap j gj
 nnoremap gk k
 nnoremap gj j
-imap gq <C-G>u<ESC>gw}| " Easy line wrapping
+imap gq <C-G>u<ESC>gw}a| " Easy line wrapping
 
 "fast insert between '"([
 imap ''' ''<ESC>i
@@ -174,14 +169,6 @@ map <F10> ;NERDTree<CR>
 vnoremap <C-c> "+y
 map <Leader>1 ;%s/\s\+$//e<cr> "usuwanie pustych spacji na końcu linii
 map <Leader>2 ;g/^$/,/./-j<cr> "usuwanie wielu pustych linni i zastępowanie jedną
-
-" H1 - H6 headers for makdown
-nnoremap <leader>h1 yypv$r-
-nnoremap <leader>h2 yypv$r=
-nnoremap <leader>h3 ^i###
-nnoremap <leader>h4 ^i####
-nnoremap <leader>h5 ^i#####
-nnoremap <leader>h6 ^i######
 
 "searching vimgrep
 command! -nargs=1 Ngrep noautocmd vimgrep "<args>" **/*.*
@@ -232,7 +219,7 @@ let g:EasyMotion_smartcase = 1
 " s{char} to move to {char}
 nmap s <Plug>(easymotion-s)
 " s{char}{char} to move to {char}{char}
-" nmap s <Plug>(easymotion-s2)
+nmap <leader>s <Plug>(easymotion-s2)
 
 " JK motions: Line motions
 map <Leader>l <Plug>(easymotion-lineforward)
@@ -240,7 +227,7 @@ map <Leader>j <Plug>(easymotion-j)
 map <Leader>k <Plug>(easymotion-k)
 map <Leader>h <Plug>(easymotion-linebackward)
 
-let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
+let g:EasyMotion_startofline = 1 " keep cursor column when JK motion
 map  <leader>f <Plug>(easymotion-sn)
 omap <leader>f <Plug>(easymotion-tn)
 " These & works fine. (These mappings just provide
@@ -250,19 +237,9 @@ map  <leader>N <Plug>(easymotion-prev)
 " ================ easymotion ==== end ===================================================================
 
 let g:vimwiki_list = [{'path': '$HOME/Dropbox/notes/wiki'}]
-let g:vimwiki_folding = ''
-let g:vimwiki_table_mappings = 0
-let g:vimwiki_hl_headers = 1
-let g:vimwiki_hl_cb_checked = 1
-hi VimwikiHeader1 ctermfg=210
-hi VimwikiHeader2 ctermfg=176
-hi VimwikiHeader3 ctermfg=229
-hi VimwikiHeader4 ctermfg=111
-hi VimwikiHeader5 ctermfg=83
-hi VimwikiHeader6 ctermfg=253
+:let g:vimwiki_table_mappings = 0
 
-
-" settings for  'itchyny/calendar.vim'
+"settings for  'itchyny/calendar.vim'
 let g:calendar_google_calendar = 1
 let g:calendar_google_task = 0
 let g:calendar_task=0
@@ -290,10 +267,6 @@ let g:session_directory = "~/.vim/session"
 let g:session_autoload = "no"
 let g:session_autosave = "no"
 let g:session_command_aliases = 1
-nnoremap <leader>so ;OpenSession
-nnoremap <leader>ss ;SaveSession
-nnoremap <leader>sd ;DeleteSession<CR>
-nnoremap <leader>sc ;CloseSession<CR>
 
 "require module: vim-abolish.git
 command Bezpolskichlinia ;S/{ą,ż,ś,ź,ę,ć,ń,ó,ł,Ą,Ż,Ś,Ź,Ę,Ć,Ń,Ó,Ł}/{a,z,s,z,e,c,n,o,l,A,Z,S,Z,E,C,N,O,L}/g
