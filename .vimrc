@@ -45,6 +45,7 @@ Bundle 'https://github.com/neilagabriel/vim-geeknote'
 Bundle 'kshenoy/vim-signature'
 Bundle 'xolox/vim-session'
 Bundle 'xolox/vim-misc'
+" Plugin 'justinmk/vim-sneak'
 " Plugin 'mattn/calendar-vim'
 " Plugin 'KabbAmine/vCoolor.vim'
 " Plugin 'henrik/vim-indexed-search'
@@ -84,6 +85,7 @@ set nowrap                        " nie zawijaj wierszy
 set showmode                      " pokazuje w jakim trybie jesteś
 set ruler                         " liniu z informacjami o otwartym pliku
 set mouse=a                       " obsługa myszy
+set lazyredraw
 au BufWinLeave ?* mkview          
 au BufWinEnter ?* silent loadview 
 
@@ -106,11 +108,15 @@ set showmatch                    "pokazuj dopasowanie nawiasów, klamr
 set scrolloff=5                  "minimalna ilość wierszy zawsze widoczna przed i za kursorem
 
 let mapleader = "\<Space>"
+inoremap jj <ESC>
 nnoremap ; :
 nnoremap : ;
 vnoremap ; :
 vnoremap : ;
+nnoremap B ^
+nnoremap E $
 nmap <leader>vim ;e ~/.vimrc<CR>
+nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
 nmap <leader>hl ;set hls<CR>
 nmap <leader>nhl ;set nohls<CR>
 nmap <leader>wrap ;set wrap linebreak nocursorline<CR>
@@ -120,8 +126,6 @@ nmap <leader>o ;FZF<CR>
 nmap <leader>O ;tabnew<CR>:FZF<CR>
 nmap <leader>b ;CtrlPBuffer<CR>
 nnoremap <leader>p ;set list!<cr> " pokazywanie znaków niedrukowanych
-nnoremap <leader>tu ?^--<cr>V/^--/-1<cr>d?^--<cr>Pj
-nnoremap <leader>td ?^--<cr>V/^--/-1<cr>d/^--<cr>Pj
 
 set is
 set ignorecase
@@ -228,8 +232,10 @@ map <Leader>k <Plug>(easymotion-k)
 map <Leader>h <Plug>(easymotion-linebackward)
 
 let g:EasyMotion_startofline = 1 " keep cursor column when JK motion
-map  <leader>f <Plug>(easymotion-sn)
-omap <leader>f <Plug>(easymotion-tn)
+" map  <leader>f <Plug>(easymotion-sn)
+" omap <leader>f <Plug>(easymotion-tn)
+map  <leader>/ <Plug>(easymotion-sn)
+omap <leader>/ <Plug>(easymotion-tn)
 " These & works fine. (These mappings just provide
 " different highlight method and have some other features )
 map  <leader>n <Plug>(easymotion-next)
