@@ -3,12 +3,10 @@
 
 1. TMUX - terminal multiplexer - .tmux.conf
 2. VIM - edytor tekstu - .vimrc
-
-# http://ranger.nongnu.org/
 3. Ranger - konsolowy menedźer plików - .config/ranger/rc.conf
-
-# http://newsbeuter.org/
+  1. http://ranger.nongnu.org/
 4. newsbeuter - czytnik RSS - .newsbeuter/config
+  1. http://newsbeuter.org/
 
 
 
