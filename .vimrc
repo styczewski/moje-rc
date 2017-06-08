@@ -41,10 +41,14 @@ Plugin 'vimwiki/vimwiki'
 Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'tomtom/tlib_vim'
 Plugin 'garbas/vim-snipmate'
-Bundle 'https://github.com/neilagabriel/vim-geeknote'
+"Colorsheme
+Plugin 'romainl/Apprentice'
+Plugin 'yantze/pt_black'
+
 Bundle 'kshenoy/vim-signature'
-Bundle 'xolox/vim-session'
 Bundle 'xolox/vim-misc'
+" Bundle 'xolox/vim-session'
+" Bundle 'https://github.com/neilagabriel/vim-geeknote'
 " Plugin 'justinmk/vim-sneak'
 " Plugin 'mattn/calendar-vim'
 " Plugin 'KabbAmine/vCoolor.vim'
@@ -65,7 +69,7 @@ filetype plugin indent on    " required
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
 
-execute pathogen#infect()
+" execute pathogen#infect()
 set rtp+=~/.fzf                   "fuzzy finder
 
 syntax on                           " kolorowanie składni
@@ -89,19 +93,20 @@ set lazyredraw
 au BufWinLeave ?* mkview          
 au BufWinEnter ?* silent loadview 
 
+colorscheme apprentice
+"colors
 "Invisible character colors
 highlight NonText guifg=#4a4a59
 highlight SpecialKey guifg=#4a4a59
 
-"colors
 set cursorline                   "podświetlanie linii kursora
 " hi CursorLine   cterm=NONE ctermbg=darkred ctermfg=white
-hi StatusLine ctermbg=white ctermfg=blue
+" hi StatusLine ctermbg=white ctermfg=blue
 set background=dark              "ciemne tło
-hi Visual term=reverse cterm=reverse guibg=Grey
+" hi Visual term=reverse cterm=reverse guibg=Grey
 ":hi Pmenu ctermbg=yellow  "kolor menu popup
 set t_Co=256
-hi Comment ctermfg=Gray           "kolor komentarzy
+" hi Comment ctermfg=Gray           "kolor komentarzy
 
 set spelllang=pl_pl,en_us        "sprawdzanie pisowni
 set showmatch                    "pokazuj dopasowanie nawiasów, klamr
@@ -109,6 +114,7 @@ set scrolloff=5                  "minimalna ilość wierszy zawsze widoczna prze
 
 let mapleader = "\<Space>"
 inoremap jj <ESC>
+inoremap ff <ESC>;w<CR>
 nnoremap ; :
 nnoremap : ;
 vnoremap ; :
@@ -121,11 +127,14 @@ nmap <leader>hl ;set hls<CR>
 nmap <leader>nhl ;set nohls<CR>
 nmap <leader>wrap ;set wrap linebreak nocursorline<CR>
 nmap <leader>a ggVG
+nmap <leader>w ;w<CR>
 nmap <leader>d ;bd<CR>
 nmap <leader>o ;FZF<CR>
 nmap <leader>O ;tabnew<CR>:FZF<CR>
 nmap <leader>b ;CtrlPBuffer<CR>
 nnoremap <leader>p ;set list!<cr> " pokazywanie znaków niedrukowanych
+nnoremap <leader><Space> za
+vnoremap <leader><Space> za
 
 set is
 set ignorecase
@@ -214,7 +223,7 @@ if version >= 700
   au InsertEnter * highlight StatusLine cterm=bold ctermfg=black ctermbg=yellow
 endif
 
-" ================ easymotion ============================================================================
+" easymotion {{{
 map <Leader> <Plug>(easymotion-prefix)
 let g:EasyMotion_do_mapping = 0 " Disable default mappings
 " Turn on case insensitive feature
@@ -240,10 +249,14 @@ omap <leader>/ <Plug>(easymotion-tn)
 " different highlight method and have some other features )
 map  <leader>n <Plug>(easymotion-next)
 map  <leader>N <Plug>(easymotion-prev)
-" ================ easymotion ==== end ===================================================================
+" easymotion }}}
 
-let g:vimwiki_list = [{'path': '$HOME/Dropbox/notes/wiki'}]
-:let g:vimwiki_table_mappings = 0
+let g:vimwiki_list = [{'path': '$HOME/encfs/pawel/notes/wiki'}]
+let g:vimwiki_folding='expr'
+let g:vimwiki_hl_headers=1
+let g:vimwiki_hl_cb_checked=1
+let g:vimwiki_table_mappings=0
+let g:vimwiki_list_ignore_newline=1
 
 "settings for  'itchyny/calendar.vim'
 let g:calendar_google_calendar = 1
@@ -269,10 +282,10 @@ let g:SuperTabMappingBackward = '<s-nul>'
 nmap <leader>g ;r !figlet
 
 " session management
-let g:session_directory = "~/.vim/session"
-let g:session_autoload = "no"
-let g:session_autosave = "no"
-let g:session_command_aliases = 1
+" let g:session_directory = "~/.vim/session"
+" let g:session_autoload = "no"
+" let g:session_autosave = "no"
+" let g:session_command_aliases = 1
 
 "require module: vim-abolish.git
 command Bezpolskichlinia ;S/{ą,ż,ś,ź,ę,ć,ń,ó,ł,Ą,Ż,Ś,Ź,Ę,Ć,Ń,Ó,Ł}/{a,z,s,z,e,c,n,o,l,A,Z,S,Z,E,C,N,O,L}/g

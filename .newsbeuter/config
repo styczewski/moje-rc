@@ -6,9 +6,10 @@
 # ----------------------------------------------------------------------
 
 auto-reload yes
-cleanup-on-quit yes
+cleanup-on-quit no
+browser w3m
 download-path "/home/styczewski/Pobrane"
-feed-sort-order title-dec
+# feed-sort-order title-dec
 max-downloads 4
 notify-always yes
 notify-format "newsbeuter: %n unread articles within %f unread feeds"
@@ -18,18 +19,18 @@ notify-screen yes
 player mplayer
 refresh-on-startup yes
 reload-time 10
-reload-threads 2
+reload-threads 5
 show-read-articles yes
 show-read-feeds yes
 goto-next-feed no
+mark-as-read-on-hover no
 
 
 # binds ----------------------------------------------------------------
-
 unbind-key t
 unbind-key R
 bind-key \ reload-all
-bind-key "RIGHT" select-tag
+bind-key t select-tag
 bind-key "SPACE" open
 confirm-exit no
 bind-key k up
@@ -38,24 +39,21 @@ bind-key l open
 bind-key h quit
 
 # hide articles matching: ---------------------------------------------
-
 ignore-article "*" "title =~ \"Sponsor\""
 ignore-article "*" "title =~ \"Advertisement\""
 ignore-mode "display"
-
 
 # formatting and colorization ------------------------------------------
 
 articlelist-format "%4i %f %D  %?T?|%-17T| ?%t"
 
-
 # For 24-bit TERM 256 colors
 # my terminal support transparent background ;) rgba(0, 0, 0, 0.95)
 color background          color206 default
 color info                color255 color97 bold
-color listnormal          color206 default
-color listfocus           color15 color133
 color listnormal_unread   color206 default
+color listnormal          color206 default
+color listfocus           color15 color133 bold
 color listfocus_unread    color133 default bold
 color article             color206 default
 search-highlight-colors   color15 color133
