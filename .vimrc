@@ -360,9 +360,9 @@ let g:tabman_toggle = 'tl'
 let g:tabman_focus  = 'tf'
 
 " == [ Autoclose ] ===========================================================
-
 " Fix to let ESC work as espected with Autoclose plugin
 let g:AutoClosePumvisible = {"ENTER": "\<C-Y>", "ESC": "\<ESC>"}
+inoremap ll <ESC>la 
 
 " == [ Dragvisuals ] =========================================================
 
@@ -486,10 +486,6 @@ xnoremap <expr> ++  VMATH_YankAndAnalyse()
 " == [ My own mappings ] =====================================================
 nmap <leader>vim ;e ~/.vimrc<CR>
 inoremap jj <ESC>
-inoremap zz <ESC>:wq<CR>
-inoremap ZZ <ESC>:wqa<CR>
-inoremap qq <ESC>:qa!<CR>
-inoremap QQ <ESC>:qa!<CR>
 
 "select all
 nnoremap <leader>a ggVG         
