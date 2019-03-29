@@ -1,0 +1,79 @@
+auto-reload yes
+cleanup-on-quit yes
+download-path "/home/pstyczewski/Downloads"
+browser "~/bin/qbrowser"
+# browser "w3m"
+# browser "~/bin/open-in-pane"
+# browser "opera"
+# feed-sort-order title-dec
+max-downloads 4
+notify-always yes
+notify-format "newsbeuter: %n unread articles within %f unread feeds"
+notify-program notify-send
+notify-xterm yes
+notify-screen yes
+player mplayer
+refresh-on-startup yes
+reload-time 10
+reload-threads 2
+show-read-articles yes
+show-read-feeds yes
+goto-next-feed no
+
+# cache ----------------------------------------------------------------
+#cache-file "~/Dropbox/newsbeuter/cache.db"
+cache-file "/home/pstyczewski/.newsbeuter/cache.db"
+
+# bookmark -------------------------------------------------------------
+bookmark-cmd "~/.newsboat/bookmark-plugin.sh"
+
+# binds ----------------------------------------------------------------
+unbind-key t
+unbind-key R
+bind-key \ reload-all
+bind-key t select-tag
+bind-key "SPACE" open
+confirm-exit no
+bind-key k up
+bind-key j down
+bind-key l open
+bind-key h quit
+
+# hide articles matching: ---------------------------------------------
+ignore-article "*" "title =~ \"Sponsor\""
+ignore-article "*" "title =~ \"Advertisement\""
+ignore-mode "display"
+
+
+# formatting and colorization ------------------------------------------
+articlelist-format "%4i %f %D  %?T?|%-17T| ?%t"
+
+# For 24-bit TERM 256 colors
+# my terminal support transparent background ;) rgba(0, 0, 0, 0.95)
+#
+# color background          color206 default
+# color info                color255 color97 bold
+# color listnormal          color206 default
+# color listfocus           color15 color133
+# color listnormal_unread   color206 default
+# color listfocus_unread    color133 default bold
+# color article             color206 default
+# search-highlight-colors   color15 color133
+
+color background          white     black
+color listnormal          white     black
+color listfocus           white     blue   
+color listnormal_unread   yellow    black 
+color listfocus_unread    white     blue   
+color info                yellow    blue   bold
+color article             white     black
+
+# add video or audio to play queue using mpv (requires: task-spooler, mpv, youtube-dl)
+# task-spooler: https://www.youtube.com/watch?v=wv8D8wT20ZY
+# youtube-dl: https://www.youtube.com/watch?v=MFxlwVhwayg
+macro p set browser "tsp mpv --ontop --no-border --force-window --autofit=500x280 --geometry=-15-10 %u"; open-in-browser ; set browser "w3m %u"
+
+# copy url to clipboard "yank"
+# xclip: https://www.youtube.com/watch?v=fKP0FLp3uW0
+macro y set browser "echo -n %u | xclip -selection clipboard"; open-in-browser ; set browser "$BROWSER %u"
+

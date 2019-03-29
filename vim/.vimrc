@@ -61,7 +61,6 @@ Plug 'vim-airline/vim-airline' " Airline
 Plug 'vim-airline/vim-airline-themes' " Airline
 Plug 'fisadev/fisa-vim-colorscheme' " Terminal Vim with 256 colors colorscheme
 Plug 'rosenfeld/conque-term' " Consoles as buffers
-Plug 'fisadev/FixedTaskList.vim' " Pending tasks list
 Plug 'tpope/vim-surround' " Surround
 Plug 'Townk/vim-autoclose' " Autoclose
 Plug 'michaeljsmith/vim-indent-object' " Indent text object
@@ -73,9 +72,7 @@ Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'tomtom/tlib_vim'
 Plug 'honza/vim-snippets'
 Plug 'garbas/vim-snipmate'
-" Git/mercurial/others diff icons on the side of the file lines
-Plug 'mhinz/vim-signify'
-" Plug 'fisadev/vim-isort' " Automatically sort python imports
+Plug 'fisadev/vim-isort' " Automatically sort python imports
 Plug 'fisadev/dragvisuals.vim' " Drag visual blocks arround
 Plug 't9md/vim-choosewin' " Window chooser
 Plug 'scrooloose/syntastic' " Python and other languages code checker
@@ -98,7 +95,7 @@ endif
 Plug 'vim-scripts/IndexedSearch' " Search results counter
 Plug 'vim-scripts/matchit.zip' " XML/HTML tags navigation
 Plug 'vim-scripts/Wombat' " Gvim colorscheme
-Plug 'vim-scripts/YankRing.vim' " Yank history navigation
+" Plug 'vim-scripts/YankRing.vim' " Yank history navigation
 
 " Tell vim-plug we finished declaring plugins, so it can load them
 call plug#end()
@@ -232,8 +229,6 @@ set backupdir=~/.vim/dirs/backups " where to put backup files
 set undofile                      " persistent undos - undo after you re-open the file
 set undodir=~/.vim/dirs/undos
 set viminfo+=n~/.vim/dirs/viminfo
-" store yankring history file there too
-let g:yankring_history_dir = '~/.vim/dirs/'
 
 " create needed directories if they don't exist
 if !isdirectory(&backupdir)
@@ -312,14 +307,13 @@ let g:ctrlp_custom_ignore = {
 nmap <leader>e :Errors<CR>
 " check also when just opened the file
 let g:syntastic_check_on_open = 1
-" don't put icons on the sign column (it hides the vcs status icons of signify)
-let g:syntastic_enable_signs = 0
+let g:syntastic_enable_signs = 1
 " custom icons (enable them if you use a patched font, and enable the previous 
 " setting)
-"let g:syntastic_error_symbol = '✗'
-"let g:syntastic_warning_symbol = '⚠'
-"let g:syntastic_style_error_symbol = '✗'
-"let g:syntastic_style_warning_symbol = '⚠'
+let g:syntastic_error_symbol = '✗'
+let g:syntastic_warning_symbol = '⚠'
+let g:syntastic_style_error_symbol = '✗'
+let g:syntastic_style_warning_symbol = '⚠'
 
 " == [ Jedi-vim ] ============================================================
 
@@ -362,7 +356,7 @@ let g:tabman_focus  = 'tf'
 " == [ Autoclose ] ===========================================================
 " Fix to let ESC work as espected with Autoclose plugin
 let g:AutoClosePumvisible = {"ENTER": "\<C-Y>", "ESC": "\<ESC>"}
-inoremap ll <ESC>la 
+inoremap <C-l> <ESC>la 
 
 " == [ Dragvisuals ] =========================================================
 
@@ -373,22 +367,6 @@ vmap <expr> <S-M-DOWN> DVB_Drag('down')
 vmap <expr> <S-M-UP> DVB_Drag('up')
 " mapping to duplicate block
 vmap <expr> D DVB_Duplicate()
-
-" == [ Signify ] =============================================================
-
-" this first setting decides in which order try to guess your current vcs
-" UPDATE it to reflect your preferences, it will speed up opening files
-let g:signify_vcs_list = [ 'git', 'hg' ]
-" mappings to jump to changed blocks
-nmap <leader>sn <plug>(signify-next-hunk)
-nmap <leader>sp <plug>(signify-prev-hunk)
-" nicer colors
-highlight DiffAdd           cterm=bold ctermbg=none ctermfg=119
-highlight DiffDelete        cterm=bold ctermbg=none ctermfg=167
-highlight DiffChange        cterm=bold ctermbg=none ctermfg=227
-highlight SignifySignAdd    cterm=bold ctermbg=237  ctermfg=119
-highlight SignifySignDelete cterm=bold ctermbg=237  ctermfg=167
-highlight SignifySignChange cterm=bold ctermbg=237  ctermfg=227
 
 " == [ Window Chooser ] ======================================================
 " mapping
@@ -482,6 +460,12 @@ omap <leader>/ <Plug>(easymotion-tn)
 xnoremap <expr> ++  VMATH_YankAndAnalyse()
 "nmap            ++  vip++ ]
 
+" == [ FZF ] =================================================================
+nmap <leader>o ;FZF<CR>
+nmap <leader>fv ;FZF /home/pstyczewski/encfs/notes/<CR>
+nmap <leader>Fv ;tabnew<CR>;FZF /home/pstyczewski/encfs/notes/<CR>
+nmap <leader>O ;tabnew<CR>;FZF<CR>
+
 
 " == [ My own mappings ] =====================================================
 nmap <leader>vim ;e ~/.vimrc<CR>
@@ -490,13 +474,16 @@ inoremap jj <ESC>
 "select all
 nnoremap <leader>a ggVG         
 
+nmap <leader>x ;close<CR>
+
 nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
 
-" mappings for FZF
-nmap <leader>o ;FZF<CR>
-nmap <leader>fv ;FZF /home/pstyczewski/encfs/notes/<CR>
-nmap <leader>Fv ;tabnew<CR>;FZF /home/pstyczewski/encfs/notes/<CR>
-nmap <leader>O ;tabnew<CR>;FZF<CR>
+"fast insert between '"([
+imap ''' ''<ESC>i
+imap """ ""<ESC>i
+imap ((( ()<ESC>i
+imap [[[ []<ESC>i
+imap {{{ {}<ESC>i
 
 nmap <leader>b ;CtrlPBuffer<CR>
 

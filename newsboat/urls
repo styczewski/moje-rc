@@ -1,0 +1,72 @@
+# -------- Query Feeds {{{
+# ------------------------------------------------------
+# http://www.newsbeuter.org/doc/newsbeuter.html#_query_feeds
+# query:<name of feed>:<filter expression> [<tag> ...]
+"query:All Unread Articles:unread = \"yes\""
+"query:All Articles JW.ORG:tags # \"jw-org\"" "jw-org"
+"query:All Articles Techniczne:tags # \"Techniczne\"" "Techniczne"
+"query:All Articles Bezpieczenstwo:tags # \"Bezpieczenstwo\"" "Bezpieczenstwo"
+
+"query:All Articles Wiadomosci:tags # \"Wiadomosci\"" "Wiadomosci"
+"query:Oflagowane s - ciekawe:flags # \"s\"" "Oflagowane"
+"query:Oflagowane b - bezpieczenstwo:flags # \"b\"" "Oflagowane"
+"query:Oflagowane r - do przeczytania:flags # \"r\"" "Oflagowane"
+# }}}
+#
+
+# -------- jw-org {{{
+# ------------------------------------------------------
+http://www.jw.org/pl/co-nowego/rss/WhatsNewWebArticles/feed.xml "jw-org"
+http://www.jw.org/en/whats-new/rss/WhatsNewWebArticles/feed.xml "jw-org"
+https://www.jw.org/pl/wiadomo%C5%9Bci/rss/FullNewsRSS/feed.xml "jw-org"
+# }}}
+
+
+# -------- wiadomosci {{{
+# ------------------------------------------------------
+https://businessinsider.com.pl/.feed "Wiadomosci"
+http://rss.gazetaprawna.pl/GazetaPrawna "Wiadomosci"
+http://www.rmf.fm/rss/rss.xml "Wiadomosci"
+http://radioszczecin.pl/rss.php "Wiadomosci"
+http://wiadomosci.wp.pl/kat,1329,ver,rss,rss.xml "Wiadomosci"
+http://wiadomosci.gazeta.pl/pub/rss/wiadomosci.htm "Wiadomosci"
+http://www.tvp.info/tvp.info/rss+xml.php?object_id=191865 "Wiadomosci"
+# }}}
+
+
+# -------- security news {{{
+# ------------------------------------------------------
+http://feeds.feedburner.com/niebezpiecznik/ "Bezpieczenstwo"
+https://www.cert.pl/feed/ "Bezpieczenstwo"
+https://zaufanatrzeciastrona.pl/feed/ "Bezpieczenstwo"
+https://feeds.feedburner.com/sekurak "Bezpieczenstwo"
+https://blog-daneosobowe.pl/feed/ "Bezpieczenstwo"
+http://itfocus.pl/feed/ "Bezpieczenstwo"
+# }}}
+
+# -------- web {{{
+# ------------------------------------------------------
+http://drupal.org/node/feed "Strony"
+https://blog.home.pl/feed/rss/ "Strony"
+# }}}
+
+# -------- techniczne {{{
+# ------------------------------------------------------
+http://feeds.feedburner.com/Antyweb "Techniczne"
+http://www.pcworld.pl/news?rss "Techniczne"
+https://www.crn.pl/rss/aktualnosci/ "Techniczne"
+http://www.chip.pl/RSS "Techniczne"
+http://www.spidersweb.pl/rss-wszystkie "Techniczne"
+http://feeds.feedburner.com/glowny-di "Techniczne"
+http://soisk.pl/feed/ "Techniczne"
+# }}}
+
+
+# -------- linux {{{
+# ------------------------------------------------------
+http://www.reddit.com/r/vim_magic/.rss "Linux"
+http://www.reddit.com/r/vim/.rss "Linux"
+http://www.reddit.com/r/vimplugins/.rss "Linux"
+http://www.reddit.com/r/i3wm/.rss "Linux"
+https://vi.stackexchange.com/feeds "Linux"
+# }}}
