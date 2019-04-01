@@ -47,35 +47,35 @@ Plug 'easymotion/vim-easymotion'
 Plug 'vim-scripts/VisIncr'
 Plug 'itchyny/calendar.vim'
 Plug 'tpope/vim-abolish'
-
-Plug 'arielrossanigo/dir-configs-override.vim' " Override configs by directory 
+Plug 'christoomey/vim-system-copy'
+  let g:system_copy#copy_command='xclip -sel clipboard'
 Plug 'scrooloose/nerdtree' " Better file browser
-Plug 'scrooloose/nerdcommenter' " Code commenter
 Plug 'majutsushi/tagbar' " Class/module browser
 Plug 'ctrlpvim/ctrlp.vim' " Code and files fuzzy finder
 Plug 'fisadev/vim-ctrlp-cmdpalette' " Extension to ctrlp, for fuzzy command finder
-Plug 'mattn/emmet-vim' " Zen coding
-Plug 'motemen/git-vim' " Git integration
 Plug 'kien/tabman.vim' " Tab list panel
 Plug 'vim-airline/vim-airline' " Airline
 Plug 'vim-airline/vim-airline-themes' " Airline
 Plug 'fisadev/fisa-vim-colorscheme' " Terminal Vim with 256 colors colorscheme
-Plug 'rosenfeld/conque-term' " Consoles as buffers
 Plug 'tpope/vim-surround' " Surround
+Plug 'honza/vim-snippets'
+Plug 'garbas/vim-snipmate'
+Plug 't9md/vim-choosewin' " Window chooser
+Plug 'godlygeek/tabular' " Window chooser
 Plug 'Townk/vim-autoclose' " Autoclose
 Plug 'michaeljsmith/vim-indent-object' " Indent text object
 Plug 'jeetsukumaran/vim-indentwise' " Indentation based movements
+Plug 'mattn/emmet-vim' " Zen coding
+Plug 'motemen/git-vim' " Git integration
+Plug 'rosenfeld/conque-term' " Consoles as buffers
+Plug 'scrooloose/nerdcommenter' " Code commenter
+Plug 'arielrossanigo/dir-configs-override.vim' " Override configs by directory 
 Plug 'davidhalter/jedi-vim' " Python autocompletion, go to definition.
 Plug 'Shougo/neocomplcache.vim' " Better autocompletion
-" Snippets manager (SnipMate), dependencies, and snippets repo
+Plug 'scrooloose/syntastic' " Python and other languages code checker
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'tomtom/tlib_vim'
-Plug 'honza/vim-snippets'
-Plug 'garbas/vim-snipmate'
-Plug 'fisadev/vim-isort' " Automatically sort python imports
-Plug 'fisadev/dragvisuals.vim' " Drag visual blocks arround
-Plug 't9md/vim-choosewin' " Window chooser
-Plug 'scrooloose/syntastic' " Python and other languages code checker
+" Plug 'fisadev/vim-isort' " Automatically sort python imports
 Plug 'lilydjwg/colorizer' " Paint css colors with the real color
 " Ack code search (requires ack installed in the system)
 Plug 'mileszs/ack.vim'
@@ -92,9 +92,9 @@ endif
 
 " Plugins from vim-scripts repos:
 
-Plug 'vim-scripts/IndexedSearch' " Search results counter
-Plug 'vim-scripts/matchit.zip' " XML/HTML tags navigation
-Plug 'vim-scripts/Wombat' " Gvim colorscheme
+"+ Plug 'vim-scripts/IndexedSearch' " Search results counter
+"+ Plug 'vim-scripts/matchit.zip' " XML/HTML tags navigation
+"+ Plug 'vim-scripts/Wombat' " Gvim colorscheme
 " Plug 'vim-scripts/YankRing.vim' " Yank history navigation
 
 " Tell vim-plug we finished declaring plugins, so it can load them
@@ -173,6 +173,10 @@ vnoremap ; :
 vnoremap : ;
 nnoremap B ^
 nnoremap E $
+vnoremap . <ESC>v)
+vnoremap , (<ESC>v(
+vnoremap n j<ESC>V
+vnoremap m k<ESC>V
 
 " tab navigation mappings
 map tn ;tabn<CR>
@@ -260,11 +264,6 @@ map <F3> ;NERDTreeToggle<CR>
 nmap ,t :NERDTreeFind<CR>
 " don;t show these file types
 let NERDTreeIgnore = ['\.pyc$', '\.pyo$']
-
-
-" == [ Tasklist ] ============================================================
-" show pending tasks list
-map <F2> ;TaskList<CR>
 
 " == [ CtrlP ] ===============================================================
 
@@ -358,15 +357,6 @@ let g:tabman_focus  = 'tf'
 let g:AutoClosePumvisible = {"ENTER": "\<C-Y>", "ESC": "\<ESC>"}
 inoremap <C-l> <ESC>la 
 
-" == [ Dragvisuals ] =========================================================
-
-" mappings to move blocks in 4 directions
-vmap <expr> <S-M-LEFT> DVB_Drag('left')
-vmap <expr> <S-M-RIGHT> DVB_Drag('right')
-vmap <expr> <S-M-DOWN> DVB_Drag('down')
-vmap <expr> <S-M-UP> DVB_Drag('up')
-" mapping to duplicate block
-vmap <expr> D DVB_Duplicate()
 
 " == [ Window Chooser ] ======================================================
 " mapping
@@ -467,6 +457,12 @@ nmap <leader>Fv ;tabnew<CR>;FZF /home/pstyczewski/encfs/notes/<CR>
 nmap <leader>O ;tabnew<CR>;FZF<CR>
 
 
+" == [ Dragvisuals ] =========================================================
+vnoremap <S-L>  xpgvlolo
+vnoremap <S-H>   xhPgvhoho
+vnoremap <S-J>   xjPgvjojo
+vnoremap <S-K>     xkPgvkoko
+"
 " == [ My own mappings ] =====================================================
 nmap <leader>vim ;e ~/.vimrc<CR>
 inoremap jj <ESC>
