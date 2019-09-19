@@ -61,7 +61,7 @@ Plug 'tpope/vim-surround' " Surround
 Plug 'honza/vim-snippets'
 Plug 'garbas/vim-snipmate'
 Plug 't9md/vim-choosewin' " Window chooser
-Plug 'godlygeek/tabular' " Window chooser
+Plug 'godlygeek/tabular' "Tabularize
 Plug 'Townk/vim-autoclose' " Autoclose
 Plug 'michaeljsmith/vim-indent-object' " Indent text object
 Plug 'jeetsukumaran/vim-indentwise' " Indentation based movements
@@ -71,8 +71,8 @@ Plug 'rosenfeld/conque-term' " Consoles as buffers
 Plug 'scrooloose/nerdcommenter' " Code commenter
 Plug 'arielrossanigo/dir-configs-override.vim' " Override configs by directory 
 Plug 'davidhalter/jedi-vim' " Python autocompletion, go to definition.
-Plug 'Shougo/neocomplcache.vim' " Better autocompletion
 Plug 'scrooloose/syntastic' " Python and other languages code checker
+" Plug 'Shougo/neocomplete.vim' " Neo complete cache
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'tomtom/tlib_vim'
 " Plug 'fisadev/vim-isort' " Automatically sort python imports
@@ -92,7 +92,7 @@ endif
 
 " Plugins from vim-scripts repos:
 
-"+ Plug 'vim-scripts/IndexedSearch' " Search results counter
+Plug 'vim-scripts/IndexedSearch' " Search results counter
 "+ Plug 'vim-scripts/matchit.zip' " XML/HTML tags navigation
 "+ Plug 'vim-scripts/Wombat' " Gvim colorscheme
 " Plug 'vim-scripts/YankRing.vim' " Yank history navigation
@@ -115,11 +115,18 @@ endif
 " no vi-compatible
 set nocompatible
 
+set nowrap
 set hidden
-
 set cm=blowfish2
-
 set listchars=tab:▸\ ,eol:¬,trail:_
+" set lazyredraw
+au BufWinLeave *.* mkview
+au BufWinEnter *.* silent loadview
+
+" https://vim.fandom.com/wiki/View_and_diff_MS_Word_files
+autocmd BufReadPre *.doc set ro
+autocmd BufReadPre *.doc set hlsearch!
+autocmd BufReadPost *.doc %!antiword "%"
 
 " Eliminating delays on ESC in vim and
 set timeoutlen=1000 ttimeoutlen=0
@@ -171,8 +178,6 @@ nnoremap ; :
 nnoremap : ;
 vnoremap ; :
 vnoremap : ;
-nnoremap B ^
-nnoremap E $
 vnoremap . <ESC>v)
 vnoremap , (<ESC>v(
 vnoremap n j<ESC>V
@@ -187,6 +192,7 @@ map tt ;tabnew
 map ts ;new<CR>
 map tv ;vnew<CR>
 map tw <leader>ww
+map te ;r !nwt 
 
 " old autocomplete keyboard shortcut
 imap <C-J> <C-X><C-O>
@@ -217,8 +223,10 @@ if has('gui_running')
     colorscheme wombat
 endif
 
+highlight Folded ctermbg=black ctermfg=green
+
 " when scrolling, keep cursor 3 lines away from screen border
-set scrolloff=3
+set scrolloff=0
 
 " autocompletion of files and commands behaves like shell
 " (complete only the common part, list the options that match)
@@ -326,26 +334,79 @@ let g:jedi#goto_assignments_command = ',a'
 " Go to definition in new tab
 nmap ,D :tab split<CR>:call jedi#goto()<CR>
 
-" == [ Neocomplcache ] =======================================================
+" == [ Neocomplete  ] =======================================================
 
-" most of them not documented because I'm not sure how they work
-" (docs aren't good, had to do a lot of trial and error to make 
-" it play nice)
-let g:neocomplcache_enable_at_startup = 1
-let g:neocomplcache_enable_ignore_case = 1
-let g:neocomplcache_enable_smart_case = 1
-let g:neocomplcache_enable_auto_select = 1
-let g:neocomplcache_enable_fuzzy_completion = 1
-let g:neocomplcache_enable_camel_case_completion = 1
-let g:neocomplcache_enable_underbar_completion = 1
-let g:neocomplcache_fuzzy_completion_start_length = 1
-let g:neocomplcache_auto_completion_start_length = 1
-let g:neocomplcache_manual_completion_start_length = 1
-let g:neocomplcache_min_keyword_length = 1
-let g:neocomplcache_min_syntax_length = 1
-" complete with workds from any opened file
-let g:neocomplcache_same_filetype_lists = {}
-let g:neocomplcache_same_filetype_lists._ = '_'
+"Note: This option must be set in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
+" Disable AutoComplPop.
+let g:acp_enableAtStartup = 0
+" Use neocomplete.
+let g:neocomplete#enable_at_startup = 1
+" Use smartcase.
+let g:neocomplete#enable_smart_case = 1
+" Set minimum syntax keyword length.
+let g:neocomplete#sources#syntax#min_keyword_length = 3
+
+" Define dictionary.
+let g:neocomplete#sources#dictionary#dictionaries = {
+    \ 'default' : '',
+    \ 'vimshell' : $HOME.'/.vimshell_hist',
+    \ 'scheme' : $HOME.'/.gosh_completions'
+        \ }
+
+" Define keyword.
+if !exists('g:neocomplete#keyword_patterns')
+    let g:neocomplete#keyword_patterns = {}
+endif
+let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+
+" Plugin key-mappings.
+inoremap <expr><C-g>     neocomplete#undo_completion()
+inoremap <expr><C-l>     neocomplete#complete_common_string()
+
+" Recommended key-mappings.
+" <CR>: close popup and save indent.
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+  return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
+  " For no inserting <CR> key.
+  "return pumvisible() ? "\<C-y>" : "\<CR>"
+endfunction
+" <TAB>: completion.
+" inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+" Close popup by <Space>.
+"inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
+
+" AutoComplPop like behavior.
+"let g:neocomplete#enable_auto_select = 1
+
+" Shell like behavior(not recommended).
+"set completeopt+=longest
+"let g:neocomplete#enable_auto_select = 1
+"let g:neocomplete#disable_auto_complete = 1
+"inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
+
+" Enable omni completion.
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+" Enable heavy omni completion.
+if !exists('g:neocomplete#sources#omni#input_patterns')
+  let g:neocomplete#sources#omni#input_patterns = {}
+endif
+"let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+"let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+"let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+
+" For perlomni.vim setting.
+" https://github.com/c9s/perlomni.vim
+let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+
 
 " == [ Tabman ] ==============================================================
 " mappings to toggle display, and to focus on it
@@ -360,7 +421,7 @@ inoremap <C-l> <ESC>la
 
 " == [ Window Chooser ] ======================================================
 " mapping
-nmap  -  <Plug>(choosewin)
+nmap  `  <Plug>(choosewin)
 " show big letters
 let g:choosewin_overlay_enable = 1
 
@@ -443,12 +504,11 @@ omap <leader>/ <Plug>(easymotion-tn)
 " map  <leader>N <Plug>(easymotion-prev)
 
 " ===[ Mapping to analyse a list of numbers ]====================
-"
 "" Need to load this early, so we can override its nmapped ++
 " runtime plugin/eqalignsimple.vim
 
 xnoremap <expr> ++  VMATH_YankAndAnalyse()
-"nmap            ++  vip++ ]
+nmap            ++  vip++
 
 " == [ FZF ] =================================================================
 nmap <leader>o ;FZF<CR>
@@ -456,13 +516,16 @@ nmap <leader>fv ;FZF /home/pstyczewski/encfs/notes/<CR>
 nmap <leader>Fv ;tabnew<CR>;FZF /home/pstyczewski/encfs/notes/<CR>
 nmap <leader>O ;tabnew<CR>;FZF<CR>
 
+" == [ HowMuch ] =============================================================
+" calculate in line
+nmap <leader>ca <Esc>0v$h<leader>?=
 
 " == [ Dragvisuals ] =========================================================
-vnoremap <S-L>  xpgvlolo
-vnoremap <S-H>   xhPgvhoho
-vnoremap <S-J>   xjPgvjojo
-vnoremap <S-K>     xkPgvkoko
-"
+" oremap <C-L>  xpgvlolo
+" oremap <C-H>  xhPgvhoho
+" oremap <C-J>  xjPgvjojo
+" oremap <C-K>  xkPgvkoko
+
 " == [ My own mappings ] =====================================================
 nmap <leader>vim ;e ~/.vimrc<CR>
 inoremap jj <ESC>
@@ -484,7 +547,7 @@ imap {{{ {}<ESC>i
 nmap <leader>b ;CtrlPBuffer<CR>
 
 " Easy line wrapping
-imap gq <C-G>u<ESC>gw}a| 
+imap gq <C-G><ESC>gw}a| 
 
 nmap <leader>wrap ;set wrap linebreak nocursorline<CR>
 
@@ -501,15 +564,17 @@ nmap <Leader>2 ;g/^$/,/./-j<cr>
 
 " search and replace
 nnoremap <leader>f /\%V
-nnoremap <leader>hl ;set hls<CR>
-nnoremap <leader>nhl ;set nohls<CR>
+nmap <leader>hl ;set hls<CR>
+nmap <leader>nhl ;set nohls<CR>
 nnoremap <leader>r yiw:%s/\<<C-r>"\>//<left>
 nnoremap <leader>R yiw:%s/\<<C-r>"\>//gc<left><left><left>
+vmap <leader>s ;s/\%V
+nmap <leader>v 0v$h
 
 nnoremap <leader>p :set list!<cr>
 nnoremap <leader>pl :setlocal spell spelllang=pl<CR>
 nmap <leader>pr ;read /home/pstyczewski/Pobrane/plik<CR>
-nmap <leader>pw ;write /home/pstyczewski/Pobrane/plik<CR>
+nmap <leader>pw ;write! /home/pstyczewski/Pobrane/plik<CR>
 
 "makro
 nnoremap Q @q
@@ -523,6 +588,9 @@ nnoremap gk k
 
 " Pretty soft break character.
 let &showbreak='↳ '
+
+" nmap } }zt
+" nmap { {zt
 
 "searching vimgrep
 command! -nargs=1 Ngrep noautocmd vimgrep "<args>" **/*.*
@@ -538,12 +606,17 @@ no <C-j> ddp
 no <C-l> o<ESC>k
 no <C-h> O<ESC>j
 
+"moving cursor in insert mode without leaving insert mode
+imap <C-h> <Esc>ha
+imap <C-l> <Esc>la
+imap <C-e> <Esc>ela
+imap <C-b> <Esc>bhi
+
 "resizing split window
 nmap <left>  ;3wincmd <<cr>
 nmap <right> ;3wincmd ><cr>
 nmap <up>    ;3wincmd +<cr>
 nmap <down>  ;3wincmd -<cr>
-
 
 "My own SYNTAX
 autocmd Syntax * syntax region textred start="lα" end="αl"
@@ -569,3 +642,35 @@ vnoremap <leader>tp d<Esc>ilε <ESC>pa εl<esc>
 vnoremap <leader>to d<Esc>ilη <ESC>pa ηl<esc>
 vnoremap <leader>bb d<Esc>i<b> <ESC>pa </b><esc>
 vnoremap <leader>uu d<Esc>i<u> <ESC>pa </u><esc>
+
+nmap <F5> zm
+nmap <F6> zr
+nmap <F7> {zt
+nmap <F8> }zt
+vmap <F5> <leader>tb
+vmap <F6> <leader>tg
+vmap <F7> <leader>to
+vmap <F8> <leader>tr
+
+" mutt: insert attachment with ranger
+fun! RangerMuttAttach()
+    if filereadable('/tmp/chosendir')
+        silent !ranger --choosefiles=/tmp/chosenfiles --choosedir=/tmp/chosendir "$(cat /tmp/chosendir)"
+    else
+        silent !ranger --choosefiles=/tmp/chosenfiles --choosedir=/tmp/chosendir
+    endif   
+    if filereadable('/tmp/chosenfiles')
+        call append('.', map(readfile('/tmp/chosenfiles'), '"Attach: ".substitute(v:val," ",''\\ '',"g")'))
+        call system('rm /tmp/chosenfiles')
+    endif
+    redraw!
+endfun
+" map <C-a> magg/Reply-To<CR><ESC>;call RangerMuttAttach()<CR>`a
+imap <C-a> <ESC>magg/Reply-To<CR><ESC>;call RangerMuttAttach()<CR>`aa
+
+" setl tw=72
+" setl fo=watqc
+" setl nojs
+" setl nosmartindent
+" " Mark trailing spaces, so we know we are doing flowed format right
+" match ErrorMsg '\s\+$'

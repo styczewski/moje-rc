@@ -1,0 +1,3 @@
+setxkbmap -option caps:caps &
+xset r rate 420 100 &
+
